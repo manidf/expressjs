@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="description" content="Express JS examples">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HOME</title>
 
@@ -12,14 +12,14 @@
 
     <!-- Fallback to homescreen for Chrome <39 on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Material Design Lite">
-    <link rel="icon" sizes="192x192" href="../assets/android-desktop.png">
+    <meta name="application-name" content="Express JS examples">
+    <link rel="icon" sizes="192x192" href="/assets/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon" href="../assets/ios-desktop.png">
+    <meta name="apple-mobile-web-app-title" content="Express JS examples">
+    <link rel="apple-touch-icon" href="/assets/ios-desktop.png">
 
     <!-- TODO: Tile icon for Win8 (144x144 + tile color) -->
     <!-- <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png"> -->
@@ -27,16 +27,16 @@
 
     <meta name="theme-color" content="#263238">
 
-    <link rel="shortcut icon" href="../assets/favicon.png">
+    <link rel="shortcut icon" href="/assets/favicon.png">
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
     <link rel="canonical" href="http://www.example.com/">
     -->
 
     <!-- Page styles -->
-    <link rel="stylesheet" href="../assets/prism-default.css">
-    <link rel="stylesheet" href="../material.min.css">
-    <link rel="stylesheet" href="../assets/main.css">
+    <link rel="stylesheet" href="/assets/prism-default.css">
+    <link rel="stylesheet" href="/css/material.min.css">
+    <link rel="stylesheet" href="/assets/main.css">
 
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en'
@@ -48,14 +48,11 @@
 <div class="docs-layout mdl-layout mdl-js-layout">
     <header class="docs-layout-header mdl-layout__header">
         <div class="mdl-layout__header-row">
-            <span class="docs-layout-title mdl-layout-title"><a href="../">Material<br>Design<br>Lite</a></span>
+            <span class="docs-layout-title mdl-layout-title"><a href="/">Expressjs<br>Code<br>Samples</a></span>
         </div>
         <div class="docs-navigation__container">
             <nav class="docs-navigation mdl-navigation">
                 <a href="index.html" class="mdl-navigation__link about">HOME</a>
-                <a href="about.html" class="mdl-navigation__link started">ABOUT US</a>
-                <a href="faq.html" class="mdl-navigation__link templates">FAQ</a>
-                <a href="newsletter.html" class="mdl-navigation__link newsletter">NEWSLETTER</a>
                 <div class="spacer"></div>
             </nav>
         </div>
@@ -64,17 +61,92 @@
     </header>
     <main class="docs-layout-content mdl-layout__content mdl-color-text--grey-600">
         <div class="content mdl-grid mdl-grid--no-spacing" id="content">
-            <div class="subpageheader mdl-cell--12-col">Homepage</div>
 
 
             <section class="template template--blog docs-text-styling mdl-grid mdl-cell mdl-cell--12-col">
-                <p>Homepage</p>
+                <div class="subpageheader mdl-cell--12-col">Homepage</div>
+                <div class="docs-text-styling">
+                    <section class="docs-toc">
+            <pre class=" language-javascript">
+                <code class=" language-javascript">
+
+                    var express = require('express');
+                    var path = require('path');
+                    var bodyParser = require('body-parser');
+                    var app = express();
+
+                    app.use(bodyParser.json());
+                    app.use(bodyParser.urlencoded({ extended: false }));
+
+                    // Set Static Path
+                    app.use(express.static(path.join(__dirname, 'public')));
+
+                    app.get('/people', function(req, res) {
+                    var people = [
+                    {
+                    first_name: "Mannuel",
+                    last_name: "Ferreira",
+                    age: "33",
+                    gender: "male"
+                    },
+                    {
+                    first_name: "Refilwe",
+                    last_name: "Ferreira",
+                    age: "33",
+                    gender: "female"
+                    },
+                    {
+                    first_name: "Joe",
+                    last_name: "blogs",
+                    age: "63",
+                    gender: "male"
+                    }
+                    ];
+
+                    res.json(people);
+                    });
+
+                    app.get('/downloads', function(req, res) {
+                    res.download(path.join(__dirname, '/downloads/ng-book.pdf'));
+                    });
+
+                    // redirect route
+                    app.get('/about', function(req, res) {
+                    res.redirect('/about.html');
+                    });
+
+                    // POST request
+                    app.post('/subscribe', function(req, res) {
+                    var name = req.body.name;
+                    var surname = req.body.surname;
+                    var email = req.body.email;
+                    console.log(name + ' has subscribed with ' +email);
+                    });
+
+                    // get request , route runs a function and accepts two objects
+                    /* //ROUTES
+                    app.get('/', function(reg, res) {
+                    res.sendFile(path.join(__dirname, 'index.html'));
+                    });
+
+                    app.get('/about', function(req, res) {
+                    res.sendFile(path.join(__dirname, 'about.html'));
+                    });
+                    */
+
+                    app.listen(3000, function() {
+                    console.log('Server started on port 3000');
+                    });
+                </code>
+            </pre>
+                    </section>
+                </div>
             </section>
 
 
         </div>
         <section class="docs-text-styling download mdl-color--grey-800">
-            <a href="../started/index.html#download" class="mdl-color-text--grey-50">THE END</a>
+            <a href="#" class="mdl-color-text--grey-50">...</a>
         </section>
         <footer class="docs-text-styling docs-footer mdl-mini-footer mdl-color--grey-900">
             <ul>
@@ -93,8 +165,7 @@
             </ul>
             <ul class="docs-link-list">
                 <li><a href="index.html" class="mdl-navigation__link about">HOME</a></li>
-                <li><a href="about.html" class="mdl-navigation__link started">ABOUT US</a></li>
-                <li><a href="faq.html" class="mdl-navigation__link templates">FAQ</a></li>
+
             </ul>
         </footer>
     </main>
@@ -110,22 +181,22 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/flexie/1.0.3/flexie.min.js"></script>
-<link href="../assets/ie.css" rel="stylesheet">
+<link href="/assets/ie.css" rel="stylesheet">
 <![endif]-->
 <!-- end shims -->
 
 
 <!-- Material Design Lite -->
-<script src="../material.min.js"></script>
+<script src="/material.min.js"></script>
 <!-- Add Copy-to-CodePen buttons to code blocks -->
-<script src="../assets/codepen.js"></script>
+<script src="/assets/codepen.js"></script>
 <!-- Enable Prism syntax highlighting -->
-<script src="../assets/prism.js"></script>
-<script src="../assets/prism-markup.min.js"></script>
-<script src="../assets/prism-javascript.min.js"></script>
-<script src="../assets/prism-css.min.js"></script>
-<script src="../assets/prism-bash.min.js"></script>
-<script src="../assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+<script src="/assets/prism-markup.min.js"></script>
+<script src="/assets/prism-javascript.min.js"></script>
+<script src="/assets/prism-css.min.js"></script>
+<script src="/assets/prism-bash.min.js"></script>
+<script src="/assets/main.js"></script>
 <!-- Built with love using Material Design Lite -->
 </body>
 </html>
